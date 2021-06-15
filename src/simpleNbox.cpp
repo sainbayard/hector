@@ -20,6 +20,12 @@
 
 #include <algorithm>
 
+#include <math.h>
+
+#ifdef USE_RCPP
+#include <Rcpp.h>
+#endif
+
 namespace Hector {
 
 using namespace boost;
@@ -54,6 +60,14 @@ void SimpleNbox::init( Core* coreptr ) {
     residual.set( 0.0, U_PGC );
     tempfertd[ SNBOX_DEFAULT_BIOME ] = 1.0;
     tempferts[ SNBOX_DEFAULT_BIOME ] = 1.0;
+    f_frozen[ SNBOX_DEFAULT_BIOME ] = 1.0;
+    new_thaw[ SNBOX_DEFAULT_BIOME ] = 0.0;
+    static_c[ SNBOX_DEFAULT_BIOME ].set(0.0, U_PGC );
+    thawed_permafrost_c[ SNBOX_DEFAULT_BIOME ].set(0.0, U_PGC );
+    rh_ch4_frac[ SNBOX_DEFAULT_BIOME ] = 0.0;
+    pf_sigma[ SNBOX_DEFAULT_BIOME ] = 0.986;
+    pf_mu[ SNBOX_DEFAULT_BIOME ] = 1.67;
+    fpf_static[ SNBOX_DEFAULT_BIOME ] = 0.74;
 
     // Initialize the `biome_list` with just "global"
     biome_list.push_back( SNBOX_DEFAULT_BIOME );
