@@ -1406,3 +1406,17 @@ return D_FLUX_INTERIOR;
 String HEAT_FLUX() {
 return D_HEAT_FLUX;
 }
+
+//' @describeIn temperature Sea level rise
+//' @export
+// [[Rcpp::export]]
+String SLR() {
+   return D_SLR;
+}
+
+//' @describeIn temperature Sea level rise rate of change
+//' @export
+// [[Rcpp::export]]
+String SL_RC() {
+   return D_SL_RC;
+}

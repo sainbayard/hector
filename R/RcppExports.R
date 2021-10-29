@@ -1094,6 +1094,18 @@ HEAT_FLUX <- function() {
     .Call('_hector_HEAT_FLUX', PACKAGE = 'hector')
 }
 
+#' @describeIn temperature Sea level rise
+#' @export
+SLR <- function() {
+    .Call('_hector_SLR', PACKAGE = 'hector')
+}
+
+#' @describeIn temperature Sea level rise rate of change
+#' @export
+SL_RC <- function() {
+    .Call('_hector_SL_RC', PACKAGE = 'hector')
+}
+
 newcore_impl <- function(inifile, loglevel, suppresslogging, name) {
     .Call('_hector_newcore_impl', PACKAGE = 'hector', inifile, loglevel, suppresslogging, name)
 }

@@ -9,6 +9,8 @@
 \alias{FLUX_MIXED}
 \alias{FLUX_INTERIOR}
 \alias{HEAT_FLUX}
+\alias{SLR}
+\alias{SL_RC}
 \title{Identifiers for variables associated with the temperature component}
 \usage{
 GLOBAL_TEMP()
@@ -24,6 +26,10 @@ FLUX_MIXED()
 FLUX_INTERIOR()
 
 HEAT_FLUX()
+
+SLR()
+
+SL_RC()
 }
 \description{
 All of these variables can be read using the \code{\link{GETDATA}} message
@@ -44,6 +50,10 @@ type.
 \item \code{FLUX_INTERIOR}: Heat flux into the interior layer of the ocean
 
 \item \code{HEAT_FLUX}: Total heat flux into the ocean
+
+\item \code{SLR}: Sea level rise
+
+\item \code{SL_RC}: Sea level rise rate of change
 }}
 
 \section{Note}{

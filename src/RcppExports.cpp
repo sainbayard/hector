@@ -1840,6 +1840,26 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// SLR
+String SLR();
+RcppExport SEXP _hector_SLR() {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    rcpp_result_gen = Rcpp::wrap(SLR());
+    return rcpp_result_gen;
+END_RCPP
+}
+// SL_RC
+String SL_RC();
+RcppExport SEXP _hector_SL_RC() {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    rcpp_result_gen = Rcpp::wrap(SL_RC());
+    return rcpp_result_gen;
+END_RCPP
+}
 // newcore_impl
 Environment newcore_impl(String inifile, int loglevel, bool suppresslogging, String name);
 RcppExport SEXP _hector_newcore_impl(SEXP inifileSEXP, SEXP loglevelSEXP, SEXP suppressloggingSEXP, SEXP nameSEXP) {
@@ -2170,6 +2190,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_hector_FLUX_MIXED", (DL_FUNC) &_hector_FLUX_MIXED, 0},
     {"_hector_FLUX_INTERIOR", (DL_FUNC) &_hector_FLUX_INTERIOR, 0},
     {"_hector_HEAT_FLUX", (DL_FUNC) &_hector_HEAT_FLUX, 0},
+    {"_hector_SLR", (DL_FUNC) &_hector_SLR, 0},
+    {"_hector_SL_RC", (DL_FUNC) &_hector_SL_RC, 0},
     {"_hector_newcore_impl", (DL_FUNC) &_hector_newcore_impl, 4},
     {"_hector_shutdown", (DL_FUNC) &_hector_shutdown, 1},
     {"_hector_reset", (DL_FUNC) &_hector_reset, 2},

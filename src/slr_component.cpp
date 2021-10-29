@@ -55,6 +55,8 @@ void slrComponent::init( Core* coreptr ) {
     // Mean global temperature is the only thing used to calculate sea level rise
     // Register our dependencies
     core->registerDependency( D_GLOBAL_TEMP, getComponentName() );
+    core->registerCapability( D_SL_RC, getComponentName() );
+    core->registerCapability( D_SLR, getComponentName() );
 
 	refperiod_low = 1951;
 	refperiod_high = 1980;
@@ -84,6 +86,7 @@ unitval slrComponent::sendMessage( const std::string& message,
     } else {                        //! We don't handle any other messages
         H_THROW( "Caller sent unknown message: "+message );
     }
+
 
     return returnval;
 }
