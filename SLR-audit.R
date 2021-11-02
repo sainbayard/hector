@@ -34,15 +34,19 @@ b <- -4.9 # cm / K
 # Get temperature data from Hector run
 temp <- data %>% filter(variable == "Tgav")
 
-# Find dTdt - just take difference of temperature values since time step is 1 year
-dTdt <- diff(temp$value)
-# If a value appears in the year 1951, it represents the change from 1950 to 1951
-# Need to note the empty first value
-dTdt <- append(dTdt, NA, after = 0)
+# Find dTdt
+compute_dT <- function(sce, data){
+    data <- data %>% filter(scenario == sce)
+    data$dT <- c(NA, (diff(data$value)))
+    return(data)
+}
+
+dTdt <- lapply(scenarios, compute_dT, temp)
+dTdt <- bind_rows(dTdt)
 
 # Equation from V&R to find dHdt
 # temp$value is Tgav
-dHdt <- a*(temp$value - T0) + (b*dTdt)
+dHdt <- a*(temp$value - T0) + (b*dTdt$dT)
 
 # Organize data
 SLR_data <- data %>%
@@ -50,8 +54,10 @@ SLR_data <- data %>%
     mutate(dHdt = dHdt) %>%
     # Difference between Hector and V&R (+: V&R > Hector)
     mutate(diff = dHdt - value) %>%
+    # Rename to Hector output
     rename(sl_rc = value) %>%
     select(-variable) %>%
     relocate(units, .after = diff) %>%
-    slice(-1)
+    # Remove years out of bounds and NA values
+    slice(-1, -353, -705, -1056)
 
