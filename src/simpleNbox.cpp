@@ -78,6 +78,9 @@ void SimpleNbox::init( Core* coreptr ) {
 
     Tgav_record.allowInterp( true );
 
+    // Running total of LUC flux (positive to atmosphere)
+    luc_running_total = 0.0;
+
     // Register the data we can provide
     core->registerCapability( D_ATMOSPHERIC_CO2, getComponentName() );
     core->registerCapability( D_ATMOSPHERIC_C, getComponentName() );

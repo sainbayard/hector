@@ -168,6 +168,10 @@ bool SimpleNbox::run_spinup( const int step )
 {
     sanitychecks();
     in_spinup = true;
+    
+    // Update veg_c0, our preindustrial veg_c value
+    veg_c0 = sum_map( veg_c ).value( U_PGC );
+    
     return true;        // solver will really be the one signalling
 }
 
@@ -235,7 +239,10 @@ void SimpleNbox::stashCValues( double t, const double c[] )
     // Land-use change emissions and uptake between atmosphere and veg/detritus/soil
     fluxpool luc_e_untracked = luc_emission(t, in_spinup) * yf;
     fluxpool luc_u_untracked = luc_uptake(t, in_spinup) * yf;
-
+    // Update the running sum of LUC
+    luc_running_total += luc_e_untracked.value(U_PGC_YR) - luc_u_untracked.value(U_PGC_YR);
+    cout << t << " " << luc_running_total << " " << veg_c0 << " npp multiplier = " << (veg_c0 - luc_running_total) / veg_c0 << endl;
+    
     fluxpool luc_fav_flux = atmos_c.flux_from_fluxpool(luc_u_untracked * f_lucv);
     fluxpool luc_fad_flux = atmos_c.flux_from_fluxpool(luc_u_untracked * f_lucd);
     fluxpool luc_fas_flux = atmos_c.flux_from_fluxpool(luc_u_untracked * ( 1 - f_lucv - f_lucd ));
@@ -410,6 +417,10 @@ fluxpool SimpleNbox::npp(std::string biome, double time) const
     else {
         npp = npp * calc_co2fert(biome, time);
     }
+    
+    // LUC effect - assumes that we're replacing biomass with pavement, i.e. no replacement NPP
+    npp = npp * (veg_c0 - (luc_running_total * 0.5)) / veg_c0;
+    
     return npp;
 }
 

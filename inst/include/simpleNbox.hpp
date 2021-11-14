@@ -149,7 +149,9 @@ private:
     double masstot;                     //!< tracker for mass conservation
     unitval atmosland_flux;             //!< Atmosphere -> land C flux
     tseries<unitval> atmosland_flux_ts; //!< Atmosphere -> land C flux (time series)
-
+    double luc_running_total;           //!< LUC running total (may be positive, emission to atmosphere, or negative)
+    double veg_c0;                      //!< Preindustrial veg_c
+    
     /*****************************************************************
      * Input data
      * This information isn't part of the state; it's either read from
